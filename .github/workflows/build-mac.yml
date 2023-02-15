@@ -24,7 +24,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install tkinter
           pip install pillow
 
       - name: Build app
