@@ -1,24 +1,39 @@
 name: Build for macOS
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
-    runs-on: macos-latest
-
+    runs-on: macOS-latest
     steps:
-    - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.x
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
 
-    - name: Install dependencies
-      run: |
-        pip install tkinter
-        pip install pillow
+      - name: Use Node.js 16
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
-    - name: Build the app
-      run: |
-        python setup.py py2app
+      - name: Install dependencies
+        run: |
+          pip install tkinter
+          pip install pillow
+
+      - name: Build app
+        run: python setup.py py2app
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: dist
+          path: dist/
