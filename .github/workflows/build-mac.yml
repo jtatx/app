@@ -2,7 +2,6 @@ name: Build for macOS
 
 on: [push]
 
-
 jobs:
   build:
     runs-on: macOS-latest
@@ -17,17 +16,13 @@ jobs:
         with:
           python-version: 3.8
 
-      - name: Use Node.js 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-
-      - name: Install dependencies
+      - name: Install PyInstaller
         run: |
-          pip install pillow
+          pip install pyinstaller
 
       - name: Build app
-        run: python setup.py py2app
+        run: |
+          pyinstaller --onefile --hidden-import=PIL --hidden-import=tkinter image-orientation-finder.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
