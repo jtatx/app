@@ -22,10 +22,13 @@ jobs:
 
       - name: Build app
         run: |
-          pyinstaller --hidden-import=PIL --hidden-import=tkinter image-orientation-finder.py
+          pyinstaller --onefile --add-data '/usr/lib/python3/dist-packages/PIL;PIL' image-orientation-finder.py
 
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: dist
           path: dist/
+
+
+# 
