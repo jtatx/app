@@ -1,9 +1,0 @@
-os: osx
-language: generic
-before_install:
-  - python3 -m venv env
-  - source env/bin/activate
-install:
-  - pip install pyinstaller
-script:
-  - pyinstaller --onefile --hidden-import PIL --hidden-import tkinter image-orientation-finder.py
